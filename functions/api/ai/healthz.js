@@ -1,5 +1,5 @@
 // 健康检查：App 端用它判断「中转站是否可达」，可达才允许使用 AI 功能。
-// 返回 { ok, configured, ts }：configured=false 表示缺 OPENCODE_API_KEY（服务未配好）。
+// 返回 { ok, configured, ts }：configured=false 表示缺 ZHIPU_API_KEY（服务未配好）。
 export async function onRequestGet(context) {
   const { env, request } = context;
   const origin = String(request.headers.get('origin') || '');
@@ -15,7 +15,7 @@ export async function onRequestGet(context) {
   }
   return new Response(JSON.stringify({
     ok: true,
-    configured: !!(env && (env.OPENCODE_API_KEY || env.ZHIPU_API_KEY)),
+    configured: !!(env && env.ZHIPU_API_KEY),
     ts: Date.now(),
   }), { status: 200, headers: h });
 }
